@@ -17,15 +17,21 @@ type User {
 }
 
 type Query {
-  users: [User!]!
   getPost(id: Int!): Post!
   posts: [Post!]!
 }
 
 type Mutation {
+  register(input: CreateUserInput!): User!
   createPost(createPostInput: CreatePostInput!): Post!
   update(updatePostInput: Float!): Post!
   deletePost(id: Int!): Post!
+}
+
+input CreateUserInput {
+  name: String!
+  email: String!
+  password: String!
 }
 
 input CreatePostInput {

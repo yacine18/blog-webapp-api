@@ -1,5 +1,6 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn, Unique } from 'typeorm';
 import { ObjectType, Field } from "@nestjs/graphql"
+import {IsEmail, IsNotEmpty, Validate} from 'class-validator'
 
 @Entity({name:"users"})
 @ObjectType()
@@ -11,13 +12,18 @@ export class User {
   
     @Column()
     @Field()
+    @IsNotEmpty()
     name: string;
   
     @Column()
     @Field()
+    @IsEmail()
+    @IsNotEmpty()
+    @Validate(Unique)
     email: string;
     
     @Column()
     @Field()
+    @IsNotEmpty()
     password: string;
   }
