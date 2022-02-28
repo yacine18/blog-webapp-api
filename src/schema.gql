@@ -17,8 +17,15 @@ type User {
 }
 
 type Query {
+  login(loginInput: LoginUserInput!): User
+  me: User
   getPost(id: Int!): Post!
   posts: [Post!]!
+}
+
+input LoginUserInput {
+  email: String!
+  password: String!
 }
 
 type Mutation {

@@ -5,6 +5,7 @@ import {IsEmail, IsNotEmpty, Validate} from 'class-validator'
 @Entity({name:"users"})
 @ObjectType()
 export class User {
+    [x: string]: any;
 
     @PrimaryGeneratedColumn()
     @Field()
