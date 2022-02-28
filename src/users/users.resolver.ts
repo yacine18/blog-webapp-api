@@ -10,17 +10,17 @@ export class UsersResolver {
   constructor(private readonly usersService: UsersService) {}
 
   @Mutation(returns => User)
-  register(@Args('input') userInput:CreateUserInput) {
+  async register(@Args('input') userInput:CreateUserInput) {
     return this.usersService.createUser(userInput);
   }
 
   @Query(() => User, {nullable:true})
-  login(@Args('loginInput') loginInput:LoginUserInput, @Context() context:Ctx) {
+  async login(@Args('loginInput') loginInput:LoginUserInput, @Context() context:Ctx) {
      return this.usersService.login(loginInput, context)
   }
 
   @Query(() => User, {nullable:true})
-  me(@Context() context:Ctx) {
+  async me(@Context() context:Ctx) {
     return context.req.user
   }
 }
