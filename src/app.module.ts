@@ -30,13 +30,15 @@ import { get, set } from 'lodash';
       debug: true,
       playground: true,
       context: ({ req, res }) => {
-        //get the cookie from request
+        // Get the cookie from request
         const token = get(req, 'cookies.token');
 
-        //verify the cookie
-        const user = token ? decode(get(req, 'cookie.token')) : null;
+        console.log({ token });
+        // Verify the cookie
 
-        //attach the user obj to req obj
+        const user = token ? decode(get(req, 'cookies.token')) : null;
+
+        // Attach the user object to the request object
         if (user) {
           set(req, 'user', user);
         }
