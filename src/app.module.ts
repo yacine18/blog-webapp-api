@@ -1,3 +1,5 @@
+import { decode } from './utils/jwt.utils';
+import { ConfigModule } from '@nestjs/config';
 import { Post } from './posts/entities/Post';
 import { User } from './users/entities/User';
 import { PostsModule } from './posts/posts.module';
@@ -7,10 +9,11 @@ import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
-
+import { get, set } from 'lodash';
 
 @Module({
   imports: [
+    ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: 'localhost',
@@ -22,13 +25,27 @@ import { join } from 'path';
       synchronize: true,
     }),
     GraphQLModule.forRoot<ApolloDriverConfig>({
-      driver:ApolloDriver,
+      driver: ApolloDriver,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
       debug: true,
-      playground: true
+      playground: true,
+      context: ({ req, res }) => {
+        //get the cookie from request
+        const token = get(req, 'cookies.token');
+
+        //verify the cookie
+        const user = token ? decode(get(req, 'cookie.token')) : null;
+
+        //attach the user obj to req obj
+        if (user) {
+          set(req, 'user', user);
+        }
+
+        return { req, res };
+      },
     }),
     UsersModule,
-    PostsModule
+    PostsModule,
   ],
   providers: [],
 })
