@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { User } from './../../users/entities/User';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
 import { Field, ObjectType } from '@nestjs/graphql';
 import { IsNotEmpty } from 'class-validator';
 
@@ -23,5 +24,9 @@ export class Post {
   @Column()
   @Field({nullable:true})
   image?:string;
+
+  @ManyToOne(() => User, user => user.posts, {onDelete: 'CASCADE'})
+  @JoinColumn()
+  user: User
 
 }

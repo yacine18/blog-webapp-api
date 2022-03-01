@@ -1,10 +1,10 @@
 import jwt from 'jsonwebtoken';
 
 const privateKey = `@THKJ1453@@@!!##~~`;
-const publicKey = `77@@~~!:;:!;<w!kjezhksfd,bf,nHHJZEH`;
+const publicKey = `@THKJ1453@@@!!##~~`;
 
 export const signJwt = (payload: string) => {
-  return jwt.sign(payload, privateKey);
+  return jwt.sign({payload}, privateKey, {expiresIn:"1d"});
 };
 
 export const decode = (token: string) => {

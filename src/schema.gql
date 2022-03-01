@@ -2,18 +2,18 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type Post {
-  id: Float!
-  title: String!
-  description: String!
-  image: String
-}
-
 type User {
   id: Float!
   name: String!
   email: String!
   password: String!
+}
+
+type Post {
+  id: Float!
+  title: String!
+  description: String!
+  image: String
 }
 
 type Query {
@@ -42,7 +42,6 @@ input CreateUserInput {
 }
 
 input CreatePostInput {
-  postId: String!
   title: String!
   description: String!
   image: String!

@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn, Unique } from 'typeorm';
+import { Post } from './../../posts/entities/Post';
+import { Column, Entity, JoinColumn, OneToMany, PrimaryGeneratedColumn, Unique } from 'typeorm';
 import { ObjectType, Field } from "@nestjs/graphql"
 import {IsEmail, IsNotEmpty, Validate} from 'class-validator'
 
@@ -27,4 +28,8 @@ export class User {
     @Field()
     @IsNotEmpty()
     password: string;
+
+    @OneToMany(() => Post, post => post.user)
+    @JoinColumn()
+    posts: Post[]
   }

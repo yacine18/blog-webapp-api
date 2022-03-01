@@ -33,7 +33,7 @@ import { get, set } from 'lodash';
         // Get the cookie from request
         const token = get(req, 'cookies.token');
 
-        console.log({ token });
+        console.log(token);
         // Verify the cookie
 
         const user = token ? decode(get(req, 'cookies.token')) : null;
